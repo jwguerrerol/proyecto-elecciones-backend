@@ -351,9 +351,9 @@ INSERT INTO roles (id_role,nom_role) VALUES (1,'Administrador'),(2,'Candidato'),
 
 
 INSERT INTO usuarios (id_role,id_puestodevotacion, id_usuario,nom_usuario,correo_usuario,clave_usuario,url_imagen, updateAt) 
-VALUES (1,1,1,'admin','admin@gmail.com','$2b$10$8pYo.Bf0WwZkWyb6vQotSue.xO15CqPsVE4pQyPdrnhXRI9xg18yu','https://res.cloudinary.com/do56sbqpw/image/upload/v1695579119/users/scj7lrbuka5lyj4erwbl.png',''),
-(2,2,2,'candidato','candidato@gmail.com','$2b$10$qYg2e1IcF5mutGDwE3Vt2.yfXSB5nPYTE6gm2YXT25tVYdekPq4qe','https://res.cloudinary.com/do56sbqpw/image/upload/v1695579119/users/scj7lrbuka5lyj4erwbl.png'),
-(3,3,3,'editor','editor@gmail.com','$2b$10$jf.qzTQntF5cTpo3s8kcoerk2G1a3RNKw3wXlpjVimZr6CtcXOl9u','https://res.cloudinary.com/do56sbqpw/image/upload/v1695579119/users/scj7lrbuka5lyj4erwbl.png');
+VALUES (1,1,1,'admin','admin@gmail.com','$2b$10$8pYo.Bf0WwZkWyb6vQotSue.xO15CqPsVE4pQyPdrnhXRI9xg18yu','https://res.cloudinary.com/do56sbqpw/image/upload/v1695579119/users/scj7lrbuka5lyj4erwbl.png',TO_TIMESTAMP(0)),
+(2,2,2,'candidato','candidato@gmail.com','$2b$10$qYg2e1IcF5mutGDwE3Vt2.yfXSB5nPYTE6gm2YXT25tVYdekPq4qe','https://res.cloudinary.com/do56sbqpw/image/upload/v1695579119/users/scj7lrbuka5lyj4erwbl.png', CURRENT_TIMESTAMP),
+(3,3,3,'editor','editor@gmail.com','$2b$10$jf.qzTQntF5cTpo3s8kcoerk2G1a3RNKw3wXlpjVimZr6CtcXOl9u','https://res.cloudinary.com/do56sbqpw/image/upload/v1695579119/users/scj7lrbuka5lyj4erwbl.png', CURRENT_TIMESTAMP);
 
 UPDATE puestosdevotacion SET id_departamento = 1 WHERE id_departamento = 1;
 
