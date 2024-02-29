@@ -1,3 +1,10 @@
+DROP VIEW IF EXISTS vista_votos_sin_filtros;
+DROP VIEW IF EXISTS vista_votos_solo_filtro_departamento;
+DROP VIEW IF EXISTS vista_votos_sin_filtro_mesas_puestosdevotacion;
+DROP VIEW IF EXISTS vista_votos_sin_filtro_mesas;
+DROP VIEW IF EXISTS vista_votos_todos_los_filtros;
+DROP VIEW IF EXISTS v_c;
+
 DROP TABLE IF EXISTS candidatos;
 DROP TABLE IF EXISTS partidos;
 DROP TABLE IF EXISTS mesas;
@@ -76,11 +83,12 @@ CREATE TABLE roles (
 CREATE TABLE usuarios (
     id_role                 INTEGER      NOT NULL,
     id_puestodevotacion     INTEGER      NOT NULL,
-    id_usuario              BIGINT       NOT NULL,
+    id_usuario              SERIAL       NOT NULL,
     nom_usuario             VARCHAR(60)  NOT NULL,
     correo_usuario          VARCHAR(60)  NOT NULL UNIQUE,
     clave_usuario           TEXT         NOT NULL,
 	url_imagen              TEXT             NULL,
+    updateAt TIMESTAMP NOT NULL DEFAULT CURRENT_DATE,            
     
 	PRIMARY KEY (id_usuario),
     FOREIGN KEY (id_role) REFERENCES roles,
@@ -90,7 +98,7 @@ CREATE TABLE usuarios (
 CREATE TABLE mesas (
     id_puestodevotacion  INTEGER     NOT NULL,
     id_mesa              INTEGER     NOT NULL,
-    id_usuario           BIGINT      NOT NULL,
+    id_usuario           SERIAL      NOT NULL,
     votos_incinerados    INTEGER     NOT NULL,
 	total_sufragantes    INTEGER     NOT NULL,
 	total_votos_urna	 INTEGER 	 NOT NULL,
@@ -342,8 +350,8 @@ VALUES
 INSERT INTO roles (id_role,nom_role) VALUES (1,'Administrador'),(2,'Candidato'),(3,'Editor');
 
 
-INSERT INTO usuarios (id_role,id_puestodevotacion, id_usuario,nom_usuario,correo_usuario,clave_usuario,url_imagen) 
-VALUES (1,1,1,'admin','admin@gmail.com','$2b$10$8pYo.Bf0WwZkWyb6vQotSue.xO15CqPsVE4pQyPdrnhXRI9xg18yu','https://res.cloudinary.com/do56sbqpw/image/upload/v1695579119/users/scj7lrbuka5lyj4erwbl.png'),
+INSERT INTO usuarios (id_role,id_puestodevotacion, id_usuario,nom_usuario,correo_usuario,clave_usuario,url_imagen, updateAt) 
+VALUES (1,1,1,'admin','admin@gmail.com','$2b$10$8pYo.Bf0WwZkWyb6vQotSue.xO15CqPsVE4pQyPdrnhXRI9xg18yu','https://res.cloudinary.com/do56sbqpw/image/upload/v1695579119/users/scj7lrbuka5lyj4erwbl.png',''),
 (2,2,2,'candidato','candidato@gmail.com','$2b$10$qYg2e1IcF5mutGDwE3Vt2.yfXSB5nPYTE6gm2YXT25tVYdekPq4qe','https://res.cloudinary.com/do56sbqpw/image/upload/v1695579119/users/scj7lrbuka5lyj4erwbl.png'),
 (3,3,3,'editor','editor@gmail.com','$2b$10$jf.qzTQntF5cTpo3s8kcoerk2G1a3RNKw3wXlpjVimZr6CtcXOl9u','https://res.cloudinary.com/do56sbqpw/image/upload/v1695579119/users/scj7lrbuka5lyj4erwbl.png');
 
