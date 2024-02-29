@@ -96,8 +96,10 @@ usuariosRouter.put( '/register', upload.single('url_imagen'), async (request, re
   console.log({ urlImagen })
   console.log('here top')
 
+  const dateFormCompare = new Date('1970-01-01T00:00:00.000Z')
+
   try {
-    const verifyCreatedUserAdminInitial = await pool.query("SELECT * FROM usuarios WHERE updateAt = '1969-12-31 19:00:00'")
+    const verifyCreatedUserAdminInitial = await pool.query("SELECT * FROM usuarios WHERE updateAt = $1", [dateFormCompare])
     console.log('here')
     console.log({ rows : verifyCreatedUserAdminInitial.rowCount})
     if(verifyCreatedUserAdminInitial.rowCount === 0 ) {
@@ -123,7 +125,7 @@ usuariosRouter.put( '/register', upload.single('url_imagen'), async (request, re
     const saltRounds = 10;
     const passwordHash = await bcrypt.hash(clave_usuario, saltRounds);
     // update usuario admin
-    await pool.query('UPDATE usuarios SET nom_usuario = $1, clave_usuario = $2, id_role = $3, id_puestodevotacion = $4, url_imagen = $5, updateAt = $6', [nom_usuario, passwordHash, id_role, id_puestodevotacion, urlImagen, new Date()])
+    await pool.query('UPDATE usuarios SET nom_usuario = $1, clave_usuario = $2, id_role = $3, id_puestodevotacion = $4, url_imagen = $5, updateAt = $6 WHERE id_usuario = 1', [nom_usuario, passwordHash, id_role, id_puestodevotacion, urlImagen, new Date()])
     return response.status(200).json(request.body)
   } catch (error) {
     return response.send(error.message)
