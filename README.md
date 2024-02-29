@@ -2,31 +2,27 @@
 
 ## Backend
 
-### 1. Create database in PostgreSQL
+### 1. Crear una base de datos con PostgreSQL
 
-Use script in /db/tesis.sql
+Usar el script de la ubicación /db/tesis.sql
 
-### 2. Create .env on file:
+### 2. Crear un archivo .env en la raíz del proyecto:
 
-Begin by creating a file name '.env' in the root directory of your project.
+### 3. Definir las variables de entorno:
 
-### 3. Define database connection variables:
-
-Inside the .env file, specify the variables required for connecting to your PostgreSQL database.
-
-- PORT : The number port used for express server. Recommended the port number 4000
-- DB_USER : The username used to authenticate with PostgreSQL server
-- DB_USER_PASSWORD : The password associated with the specified username
-- DB_DATABASE = The name of the PostgreSQL database you want connect to.
-- DB_HOST = The hostname of IP address of the PostgreSQL server(default 'localhost')
-- DB_PORT = The port number on which PostgreSQL is running(default is 5432)
-- TEST_PORT = The number port used for express server. Recommended the port number 4000.
-- TEST_DB_USER = The username used to authenticate with PostgreSQL server
-- TEST_DB_USER_PASSWORD = The password associated with the specified username
-- TEST_DB_DATABASE = The name of the PostgreSQL test database you want connect to.
-- TEST_DB_HOST = The hostname of IP address of the PostgreSQL server(default 'localhost')
+- PORT : Puerto que usuará Express para iniciar el proyecto en local, en caso de estar ejecutandose en producción, este se ajustará automáticamente según el entorno en producción, a menos que el servidor donde se vaya a alojar indique que se debe especificar, en caso tal se usará no solamente en local, sino también en producción.
+- DB_USER : Usuario con permisos para utilizar la base de datos
+- DB_USER_PASSWORD : Contraseña de usuario con acceso a la base de datos
+- DB_DATABASE = Nombre de la base de datos
+- DB_HOST = Hostname o IP de la base de datos. Por defecto es 'localhost'
+- DB_PORT = Puerto de postgreSQL. Por defecto 5432
+- TEST_PORT = Puerto de postgreSQL para testing. Por defecto 5432
+- TEST_DB_USER = Usuario de la base de datos con permisos sobre la base de datos de testing
+- TEST_DB_USER_PASSWORD = Contraseña de usuario de la base de datos de testing
+- TEST_DB_DATABASE = Nombre de base de datos de testing
+- TEST_DB_HOST = Hostname o IP de la base de datos de testing. Por defecto es 'localhost'
 - TEST_DB_PORT =5432
-- SECRET = The password encryption phrase(default 'colombia_mi_patria). Change for security. 
+- SECRET = Frase de seguridad de su preferencia, para codificar y decodificar el token generado para autenticación. ESTE PASO ES ESENCIAL, PARA PODER GESTIONAR LA SEGURIDAD DE LA AUTENTICACIÓN. Nunca revele este código o lo deje visible ene el código. 
 
 ```bash
     PORT =4000
@@ -44,98 +40,26 @@ Inside the .env file, specify the variables required for connecting to your Post
     SECRET = 'colombia_patria_mia'
 ```
 
-### 4. Include .env in .gitignore
+### 4. Incluir el archivo .env en el archivo .gitignore
 
-To prevent sensitive information from being exposed, add the .env file to your .gitignore file.
+Para prevenir filtrar información sensible del proyecto como APIS, claves, frases SECRET, tokens, urls de conexión se debe realizar este proceso:
 
 ```bash
 # .gitignore
 .env
 ```
 
-## RECOMMENDED: Additional steps if your change the encryption passphrase(SECRET) in the .env file:
-
-### 1. Get 
-Using postman make a request to the url: http://localhost:4000/login. Use POST method.
-
-Data for create new user:
-
-```JSON
-{
-    "id_usuario": 4,
-    "nom_usuario": "yourName",
-    "correo_usuario": "yourEmail@example.com",
-    "clave_usuario": "yourPasswordEncrypted",
-    "id_role": 1,
-    "id_puesto_votacion": 1,
-    "url_imagen": "https://res.cloudinary.com/do56sbqpw/image/upload/v1695579119/users/scj7lrbuka5lyj4erwbl.png"
-}
-
-```
-
-Response Postman example:
-
-```JSON
-{
-    "id_usuario": 4,
-    "nom_usuario": "yourName",
-    "correo_usuario": "yourEmail@example.com",
-    "clave_usuario": "passwordEncrypted",
-    "id_role": 1,
-    "id_puesto_votacion": 1,
-    "url_imagen": "https://res.cloudinary.com/do56sbqpw/image/upload/v1695579119/users/scj7lrbuka5lyj4erwbl.png"
-}
-
-```
-
-Copy from Postman's response the value of clave_usuario encrypted
-
-
-### 2. Update PostgreSQL database 
-
-Using the terminal or pgAdmin update the password of the admin user(admin@gmail.com). Use the clave_usuario copied in the previus step
-
-```SQL
-UPDATE usuarios SET clave_usuario = 'yourPasswordEncrypted' WHERE id_usuario=1;
-```
-
-## Run project
+## Ejecutar proyecto
 
 ### Backend
 
-Using the terminal, go to the project root folder and execute:
+Usando la terminal, ejecutar:
 
 ```bash
 npm run dev
 ```
 
-Default url: http://localhost:4000
+Url por defecto: http://localhost:4000
 
-### Frontend
-
-Using the terminal, go to the project root folder and execute:
-
-```bash
-cd frontend # Localized in frontend directory
-npm start   # Up frontend
-```
-
-Default url: http://localhost:3000
-
-## Login
-
-### If you use default "SECRET" value on .env file: 
-
-Using usename and password by default for login:
-
-**Username**: admin@gmail.com
-**Password**: 320350
-
-## If you are using custom "SECRET" value on .env file
-
-Login with your credentials
-
-**Username**: admin@gmail.com
-**Pasword**: yourPasswordEncrypted
 
 **JOIN**
