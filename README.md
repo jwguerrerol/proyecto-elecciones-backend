@@ -49,6 +49,18 @@ Para prevenir filtrar información sensible del proyecto como APIS, claves, fras
 .env
 ```
 
+### 5. Crear una cuenta en Cloudinary
+
+Dado que se va ha utilizar un serveless, como vercel, vamos en este caso a manejar los archivos en el servicio de Cloudinary, usando la API que ellos proveen y que en este caso se va ha integrar con Node (backend Express). Para esto es necesario agregar los datos provistos por Cloudinary a nuestro archivo .env del backend y que se pueden encontrar en la sección "Dashboard" de esa plataforma:
+
+```bash
+CLOUD_NAME = nameCloudinary 
+API_KEY = apiKeyCloudinary
+API_SECRET = apiSecretCloudinary 
+```
+
+**NOTA**: Para crear el archivo .env puede usar el archivo .env.example como plantilla, sino puede usar la información ya indicada para definir las variables de entorno. Recuerde que los valores de estas variables son personalizados a su proyecto.
+
 ## Ejecutar proyecto
 
 ### Backend
