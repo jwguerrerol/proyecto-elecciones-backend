@@ -3,7 +3,7 @@ const puestosdevotacionRouter = require('express').Router()
 
 puestosdevotacionRouter.get( '/puestosdevotacion', async (request, response) => {
   try {
-    const result = await pool.query('SELECT * FROM puestosdevotacion;')
+    const result = await pool.query('SELECT * FROM puestosdevotacion p INNER JOIN municipios m ON p.id_municipio = m.id_municipio;')
     const puestosdevotacion = result.rows
     response.json(puestosdevotacion).status(200)
   } catch (error) {
